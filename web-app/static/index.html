@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>X Rebirth</title>
+  </head>
+  <body>
+	<div id="main" class="container text-center">
+		<h2 id="fullscreen">X Rebirth</h2>
+		<h1><span id="credits-container"><span id="credits" class="green-to-black">3.141.715</span></span> <span class="text-muted">credits</span></h1>
+	</div>
+
+	<script type="text/javascript">
+		var ws = new WebSocket("ws://192.168.178.100:3000/echo");
+		var last = 0;
+		ws.onmessage = function(message) {
+			var now = parseInt(message.data);
+			if (now != last) {
+				var container = document.getElementById("credits-container");
+				var clazz = now > last ? "green-to-black" : "red-to-black";
+				container.innerHTML = "<span id='credits' class='" + clazz + "'>" + convertToThousandSeparated(message.data) + "</span>";
+				last = now;
+			}
+		}
+		
+		function convertToThousandSeparated(value) {
+			var start = value.length % 3;
+			var start = start == 0 ? 3 : start;
+			var result = value.substr(0, start);
+			for (var i = start; i < value.length; i += 3) {
+				result += "." + value.substr(i, 3);
+			}
+			return result;
+		}
+		
+		document.onclick = function() {
+			var elem = document.getElementById("main");
+			if (elem.requestFullscreen) {
+			  elem.requestFullscreen();
+			} else if (elem.msRequestFullscreen) {
+			  elem.msRequestFullscreen();
+			} else if (elem.mozRequestFullScreen) {
+			  elem.mozRequestFullScreen();
+			} else if (elem.webkitRequestFullscreen) {
+			  elem.webkitRequestFullscreen();
+			}
+		};
+	</script>
+	<style>
+		body {
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+		
+		h1 {
+			font-size: 5em;
+			font-weight: normal;
+		}
+		
+		h2 {
+			font-size: 4em;
+			margin-top: 1.5em;
+			font-weight: normal;
+		}
+		
+		@keyframes red-to-black {
+			0% { color: red; }
+			100% { color: black; }
+		}
+		
+		@keyframes green-to-black {
+			0% { color: #3c3; }
+			100% { color: black; }
+		}
+		
+		.red-to-black {
+			animation-name: red-to-black;
+			animation-duration: 2s;
+			animation-timing-function: linear;
+		}
+		
+		.green-to-black {
+			animation-name: green-to-black;
+			animation-duration: 2s;
+			animation-timing-function: linear;
+		}
+		
+		.text-center {
+			text-align: center;
+		}
+		
+		.text-muted {
+			color: #777
+		}
+		
+		#credits {
+			color: black;
+		}
+		
+		:-moz-full-screen  {
+			background-color: #fff;
+		}
+	</style>
+  </body>
+</html>

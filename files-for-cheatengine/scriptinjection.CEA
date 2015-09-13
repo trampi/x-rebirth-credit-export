@@ -1,0 +1,31 @@
+[ENABLE]
+assert(XRebirth.xmlInitializeDict+A809A, 48 8B 5C 24 30)
+alloc(newmem,2048,XRebirth.xmlInitializeDict+A8093)
+label(returnhere)
+label(originalcode)
+label(exit)
+loadlibrary(C:\Users\trampi\Desktop\XRebirthWriteToFile\x64\Debug\XRebirthWriteToFile.dll)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [rdi+00000108],rbx
+//push rcx
+mov rcx,rbx
+call XRebirthWriteToFile.fnTestDll
+//pop rcx
+
+originalcode:
+
+
+exit:
+jmp returnhere
+
+XRebirth.xmlInitializeDict+A8093:
+jmp newmem
+nop
+nop
+returnhere:
+
+[DISABLE]
+XRebirth.xmlInitializeDict+A8093:
+mov [rdi+00000108],rbx
+

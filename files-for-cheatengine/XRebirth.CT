@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="18">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>23</ID>
+      <Description>"No description"</Description>
+      <LastState Value="??" Activated="0" RealAddress="7FFABA22528"/>
+      <Color>80000008</Color>
+      <VariableType>8 Bytes</VariableType>
+      <Address>000007FFABA22420+108</Address>
+    </CheatEntry>
+    <CheatEntry>
+      <ID>33</ID>
+      <Description>"Auto Assemble script"</Description>
+      <LastState Activated="1"/>
+      <Color>80000008</Color>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+assert(XRebirth.xmlInitializeDict+A809A, 48 8B 5C 24 30)
+alloc(newmem,2048,XRebirth.xmlInitializeDict+A8093)
+label(returnhere)
+label(originalcode)
+label(exit)
+loadlibrary(C:\Users\trampi\Desktop\XRebirthWriteToFile\x64\Debug\XRebirthWriteToFile.dll)
+
+newmem: //this is allocated memory, you have read,write,execute access
+mov [rdi+00000108],rbx
+//push rcx
+mov rcx,rbx
+call XRebirthWriteToFile.fnTestDll
+//pop rcx
+
+originalcode:
+
+
+exit:
+jmp returnhere
+
+XRebirth.xmlInitializeDict+A8093:
+jmp newmem
+nop
+nop
+returnhere:
+
+[DISABLE]
+XRebirth.xmlInitializeDict+A8093:
+mov [rdi+00000108],rbx
+
+</AssemblerScript>
+    </CheatEntry>
+  </CheatEntries>
+  <CheatCodes>
+    <CodeEntry>
+      <Description>read from credits</Description>
+      <Address>13FF2524A</Address>
+      <ModuleName>XRebirth.exe</ModuleName>
+      <ModuleNameOffset>17524A</ModuleNameOffset>
+      <Before>
+        <Byte>57</Byte>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>20</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>81</Byte>
+        <Byte>08</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>DA</Byte>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>write to credits</Description>
+      <Address>13FF25273</Address>
+      <ModuleName>XRebirth.exe</ModuleName>
+      <ModuleNameOffset>175273</ModuleNameOffset>
+      <Before>
+        <Byte>E8</Byte>
+        <Byte>0D</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Before>
+      <Actual>
+        <Byte>48</Byte>
+        <Byte>89</Byte>
+        <Byte>9F</Byte>
+        <Byte>08</Byte>
+        <Byte>01</Byte>
+        <Byte>00</Byte>
+        <Byte>00</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>8B</Byte>
+        <Byte>5C</Byte>
+        <Byte>24</Byte>
+        <Byte>30</Byte>
+      </After>
+    </CodeEntry>
+    <CodeEntry>
+      <Description>write to file</Description>
+      <Address>7FEF6921010</Address>
+      <ModuleName>XRebirthWriteToFile.dll</ModuleName>
+      <ModuleNameOffset>1010</ModuleNameOffset>
+      <Before>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+        <Byte>CC</Byte>
+      </Before>
+      <Actual>
+        <Byte>40</Byte>
+        <Byte>53</Byte>
+      </Actual>
+      <After>
+        <Byte>48</Byte>
+        <Byte>83</Byte>
+        <Byte>EC</Byte>
+        <Byte>50</Byte>
+        <Byte>48</Byte>
+      </After>
+    </CodeEntry>
+  </CheatCodes>
+  <UserdefinedSymbols/>
+</CheatTable>
